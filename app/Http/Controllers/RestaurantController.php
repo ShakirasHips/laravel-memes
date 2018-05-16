@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Restaurant;
+use App\Http\Requests\RestaurantRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -42,39 +43,24 @@ class RestaurantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RestaurantRequest $request)
     {
-        $rules = array('name' => 'required',
-                       'phone' => 'required|numeric',
-                       'address1' => 'required',
-                       'suburb' => 'required',
-                       'state' => 'required',
-                       'numberofseats' => 'required|numeric',
-                       'country_id' => 'required|numeric',
-                       'category_id' => 'required|numeric',
-        );
-        $validator = Validator::make(Input::all(), $rules);
+        $validated = $request->validated();
+        $restaurants = new Restaurant;
+        $restaurants->name = Input::get('name');
+        $restaurants->phone = Input::get('phone');
+        $restaurants->address1 = Input::get('address1');
+        $restaurants->address2 = Input::get('address2');
+        $restaurants->suburb = Input::get('suburb');
+        $restaurants->state = Input::get('state');
+        $restaurants->numberofseats = Input::get('numberofseats');
+        $restaurants->country_id = Input::get('country_id');
+        $restaurants->category_id = Input::get('category_id');
+        $restaurants->save();
 
-        if ($validator->fails())
-        {
-            // TODO: change this
-            return Redirect::to('shitsfucked');
-        } else {
-            $restaurants = new Restaurant;
-            $restaurants->name = Input::get('name');
-            $restaurants->phone = Input::get('phone');
-            $restaurants->address1 = Input::get('address1');
-            $restaurants->address2 = Input::get('address2');
-            $restaurants->suburb = Input::get('suburb');
-            $restaurants->state = Input::get('state');
-            $restaurants->numberofseats = Input::get('numberofseats');
-            $restaurants->country_id = Input::get('country_id');
-            $restaurants->category_id = Input::get('category_id');
-            $restaurants->save();
+        Session::flash('message', 'Successfully created Restaurant!');
+        return Redirect::to('restaurants');
 
-            Session::flash('message', 'Successfully created Restaurant!');
-            return Redirect::to('restaurants');
-      }
     }
 
     /**
@@ -109,25 +95,9 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RestaurantRequest $request, $id)
     {
-        $rules = array('name' => 'required',
-                       'phone' => 'required|numeric',
-                       'address1' => 'required',
-                       'suburb' => 'required',
-                       'state' => 'required',
-                       'numberofseats' => 'required|numeric',
-                       'country_id' => 'required|numeric',
-                       'category_id' => 'required|numeric',
-        );
-
-        $validator = Validator::make(Input::all(), $rules);
-
-        if ($validator->fails())
-        {
-            // TODO: change this
-            return Redirect::to('shitsfucked');
-        } else {
+            $validated = $request->validated();
             $restaurants = Restaurant::find($id);
             $restaurants->name = Input::get('name');
             $restaurants->phone = Input::get('phone');
@@ -142,7 +112,6 @@ class RestaurantController extends Controller
 
             Session::flash('message', 'Successfully update Restaurant!');
             return Redirect::to('restaurants');
-        }
     }
 
     /**

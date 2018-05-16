@@ -1,6 +1,6 @@
 
 <html>
 <body>
-Shits fucked
+¯\_(ツ)_/¯
 </body>
 </html>

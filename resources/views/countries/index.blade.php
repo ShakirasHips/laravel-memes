@@ -36,7 +36,8 @@ Session::get('message') }}</div>
  <tr>
 
  <td>{{ $value->country_id}}</td>
- <td>{{ $value->name }}</td>
+ <td><a href="{{ URL::to('showCountry/'. $value->country_id)}}">
+     {{ $value->name }}</a></td>
  <td>{{ $value->created_at }}</td>
  <td>{{ $value->updated_at }}</td>
  <!-- we will also add show, edit, and delete

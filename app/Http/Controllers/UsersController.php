@@ -79,7 +79,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = Users::find($id);
-        return View::make('users.shoe')->with('users', $user);
+        return View::make('users.show')->with('users', $user);
     }
 
     /**

@@ -36,7 +36,8 @@ Session::get('message') }}</div>
  <tr>
 
  <td>{{ $value->category_id}}</td>
- <td>{{ $value->name }}</td>
+ <td><a href="{{ URL::to('showCategory/'. $value->category_id)}}">
+ {{ $value->name }}</a></td>
  <td>{{ $value->created_at }}</td>
  <td>{{ $value->updated_at }}</td>
  <!-- we will also add show, edit, and delete

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Posts;
+use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -42,29 +43,21 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        $rules = array('content'=>'required',
-                       'restaurant_id'=>'required',
-                       'user_id'=>'required',
-        );
+        $validated = $request->validated();
+        $post = new Posts;
+        $post->content = Input::get('content');
+        $post->created_at = Carbon::now();
+        $post->updated_at = Carbon::now();
+        $post->restaurant_id = Input::get('restaurant_id');
+        $post->user_id = Input::get('user_id');
+        $post->save();
 
-        $validator = Validator::make(Input::all(), $rules);
-        if ($validator->fails()) {
-            return Redirect::to('shitsfucked');
-        }else {
-            $post = new Posts;
-            $post->content = Input::get('content');
-            $post->created_at = Carbon::now();
-            $post->updated_at = Carbon::now();
-            $post->restaurant_id = Input::get('restaurant_id');
-            $post->user_id = Input::get('user_id');
-            $post->save();
+        Session::flash('message', 'Successfully created Post!');
+        return redirect()->action('RestaurantController@show', ['id' => $post->restaurant_id]);
 
-            Session::flash('message', 'Successfully created Post!');
-            return Redirect::to('posts');
 
-        }
     }
 
     /**
@@ -98,17 +91,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
-        $rules = array('content'=>'required',
-                       'restaurant_id'=>'required',
-                       'user_id'=>'required',
-        );
-
-        $validator = Validator::make(Input::all(), $rules);
-        if ($validator->fails()) {
-            return Redirect::to('shitsfucked');
-        }else {
+            $validated = $request->validated();
             $post = Posts::find($id);
             $post->content = Input::get('content`');
             $post->updated_at = Carbon::now();
@@ -119,7 +104,6 @@ class PostsController extends Controller
             Session::flash('message', 'Successfully created Post!');
             return Redirect::to('posts');
 
-        }
     }
 
     /**
@@ -132,4 +116,24 @@ class PostsController extends Controller
     {
         //
     }
+
+
+    public function addFromRestaurant(PostRequest $request)
+    {
+        $validated = $request->validated();
+        $post = new Posts;
+        $post->content = Input::get('content');
+        $post->created_at = Carbon::now();
+        $post->updated_at = Carbon::now();
+        $post->restaurant_id = Input::get('restaurant_id');
+        $post->user_id = Input::get('user_id');
+        $post->save();
+
+        Session::flash('message', 'Successfully created Post!');
+        return Redirect::to('restaurants\index');
+
+
+
+    }
+
 }

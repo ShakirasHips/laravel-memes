@@ -17,6 +17,9 @@ Route::get('/', function () {
 
 
 Route::get('showRestaurant/{id}', 'RestaurantController@show');
+Route::get('showCountry/{id}', 'CountriesController@show');
+Route::get('showCategory/{id}', 'CategoriesController@show');
+Route::get('showUser/{id}', 'UsersController@show');
 Route::resource('restaurants', 'RestaurantController');
 Route::resource('countries', 'CountriesController');
 Route::resource('categories', 'CategoriesController');
@@ -24,3 +27,4 @@ Route::resource('roles', 'RolesController');
 Route::resource('users', 'UsersController');
 Route::resource('posts', 'PostsController');
 Route::resource('comments', 'CommentsController');
+Route::get('addPostFromRestaurant', 'PostsController@addFromRestaurant');

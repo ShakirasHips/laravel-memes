@@ -39,7 +39,8 @@ Session::get('message') }}</div>
  <tr>
 
  <td>{{ $value->user_id}}</td>
- <td>{{ $value->name }}</td>
+ <td><a href="{{ URL::to('showUser/'. $value->user_id)}}">
+     {{ $value->name }}</a></td>
   <td>{{ $value->email }}</td>
    <td>{{ $value->password }}</td>
  <td>{{ $value->created_at }}</td>

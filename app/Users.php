@@ -20,6 +20,16 @@ class Users extends Model
 
     public function roles()
     {
-        return $this->belongsToMany('App\roles');
+        return $this->hasMany('App\role_user', 'user_id', 'user_id');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany('App\Posts', 'user_id', 'user_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comments', 'user_id', 'user_id');
     }
 }

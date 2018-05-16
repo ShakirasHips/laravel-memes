@@ -15,4 +15,9 @@ class Comments extends Model
     {
         return $this->belongsTo('App\Users', 'user_id');
     }
+
+    public function getPost()
+    {
+        return $this->belongsTo('App\Posts', 'post_id');
+    }
 }

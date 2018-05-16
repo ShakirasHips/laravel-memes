@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Comments;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
@@ -41,29 +42,21 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
-        $rules = array('content'=>'required',
-                       'post_id'=>'required',
-                       'user_id'=>'required',
-        );
+        $validated = $request->validated();
+        $comment = new Comments;
+        $comment->content = Input::get('content');
+        $comment->created_at = Carbon::now();
+        $comment->updated_at = Carbon::now();
+        $comment->post_id = Input::get('post_id');
+        $comment->user_id = Input::get('user_id');
+        $comment->save();
 
-        $validator = Validator::make(Input::all(), $rules);
-        if ($validator->fails()) {
-            return Redirect::to('shitsfucked');
-        }else {
-            $comment = new Comments;
-            $comment->content = Input::get('content');
-            $comment->created_at = Carbon::now();
-            $comment->updated_at = Carbon::now();
-            $comment->post_id = Input::get('post_id');
-            $comment->user_id = Input::get('user_id');
-            $comment->save();
+        Session::flash('message', 'Successfully created Comment');
+        return redirect()->action('RestaurantController@show', ['id' => $comment->getPost->restaurant_id]);
 
-            Session::flash('message', 'Successfully created Comment');
-            return Redirect::to('comments');
 
-        }
     }
 
     /**
@@ -95,9 +88,18 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CommentRequest $request, $id)
     {
-        //
+        $validated = $request->validated();
+        $comment = Comments::find($id);
+        $comment->content = Input::get('content');
+        $comment->updated_at = Carbon::now();
+        $comment->post_id = Input::get('post_id');
+        $comment->user_id = Input::get('user_id');
+        $comment->save();
+
+        Session::flash('message', 'Successfully created Comment');
+        return Redirect::to('comments');
     }
 
     /**
