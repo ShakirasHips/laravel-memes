@@ -118,6 +118,10 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categories = Categories::find($id);
+        $categories->delete();
+
+        Session::flash('message', 'Successfully deleted the Category!');
+        return Redirect::to('categories');
     }
 }

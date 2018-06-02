@@ -57,7 +57,7 @@
  {{ HTML::ul($errors->all()) }}
  <a href="javascript:void(0);" onclick="showPost();">Add Post</a>
     <div id="PostForm" style="display: none">
-         {{ Form::open(array('url' => 'posts')) }}
+         {{ Form::open(array('url' => 'addPostFromRestaurant')) }}
          <div class="form-group">
 
          {{ Form::label('content', 'Content') }}

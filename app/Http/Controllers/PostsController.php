@@ -114,7 +114,11 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Post = Posts::find($id);
+        $Post->delete();
+
+        Session::flash('message', 'Successfully deleted Post!');
+        return Redirect::to('posts');
     }
 
 
@@ -130,7 +134,7 @@ class PostsController extends Controller
         $post->save();
 
         Session::flash('message', 'Successfully created Post!');
-        return Redirect::to('restaurants\index');
+        return redirect()->action('RestaurantController@show', ['id' => $post->restaurant_id]);
 
 
 

@@ -117,6 +117,10 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $role = Roles::find($id);
+        $role->delete();
+
+        Session::flash('message', 'Successfully deleted the Role!');
+        return Redirect::to('restaurants');
     }
 }

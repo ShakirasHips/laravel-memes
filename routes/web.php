@@ -27,4 +27,6 @@ Route::resource('roles', 'RolesController');
 Route::resource('users', 'UsersController');
 Route::resource('posts', 'PostsController');
 Route::resource('comments', 'CommentsController');
-Route::get('addPostFromRestaurant', 'PostsController@addFromRestaurant');
+Route::post('addPostFromRestaurant', 'PostsController@addFromRestaurant');
+
+//API Routes

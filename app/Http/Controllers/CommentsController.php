@@ -110,6 +110,10 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment = Comments::find($id);
+        $comment->delete();
+
+        Session::flash('message', 'Successfully deleted comment');
+        return Redirect::to('comments');
     }
 }

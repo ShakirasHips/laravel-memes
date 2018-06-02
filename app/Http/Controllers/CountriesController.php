@@ -120,6 +120,10 @@ class CountriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $country = Country::find($id);
+        $country->delete();
+
+        Session::flash('message', 'Successfully deleted Country!');
+        return Redirect::to('countries');
     }
 }
