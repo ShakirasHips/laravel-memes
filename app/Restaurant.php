@@ -10,7 +10,7 @@ class Restaurant extends Model
     protected $primaryKey = 'restaurant_id';
     public $timestamps = false;
 
-    protected $fillable = ['name', 'phone', 'address1', 'address2', 'suburb', 'state', 'numberofseats', 'country_id', 'category_id'];
+    protected $fillable = ['restaurant_id','name', 'phone', 'address1', 'address2', 'suburb', 'state', 'numberofseats', 'country_id', 'category_id'];
 
     public function posts()
     {

@@ -15,16 +15,16 @@ class deleteRestaurant extends FormRequest
     public function rules()
     {
         return [
-			'restid' => 'required|numeric',
+			'restaurant_id' => 'required|numeric',
         ];
     }
-	
+
 	//Restaurant messages
 	public function messages()
 	{
 		return [
-			'restid.required' => 'Please enter Restaurant ID',
-			'restid.numeric' => 'Please enter a numeric restaurant id value',			
+			'restaurant_id.required' => 'Please enter Restaurant ID',
+			'restaurant_id.numeric' => 'Please enter a numeric restaurant id value',
 		];
 	}
 }

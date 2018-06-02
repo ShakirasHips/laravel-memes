@@ -18,10 +18,10 @@ class RoleAPIController extends Controller
     public function store(Request $request)
     {
 		$validator = Validator::make($request->all(), (new storeRole)->rules());
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return response()->json($validator->errors(), 400);
-		} else 
+		} else
 		{
 			$role = Roles::create($request->all());
 			return response()->json($role, 201);
@@ -31,22 +31,30 @@ class RoleAPIController extends Controller
 	public function update(Request $request)
     {
 		$validator = Validator::make($request->all(), (new storeRole)->rules());
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return response()->json($validator->errors(), 400);
-		} else 
+		} else
 		{
-			$role = Roles::find($request['id']);
+			$role = Roles::find($request['role_id']);
+            if (is_null($role))
+            {
+                return response()->json(null, 404);
+            }
 			$role->update($request->all());
 			return response()->json($role, 200);
 		}
-		
+
 
     }
 
     public function destroy(Request $request)
     {
-        $role = Roles::find($request['id']);
+        $role = Roles::find($request['role_id']);
+        if (is_null($role))
+        {
+            return response()->json(null, 404);
+        }
 		$role->delete();
 		return response()->json(null, 204);
     }

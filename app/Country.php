@@ -10,7 +10,7 @@ class Country extends Model
     protected $primaryKey = 'country_id';
 
     protected $fillable = [
-      'name'
+      'country_id', 'name'
     ];
 
     public function countries()

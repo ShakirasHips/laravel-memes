@@ -18,34 +18,42 @@ class UserAPIController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), (new storeUser)->rules());
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return response()->json($validator->errors(), 400);
-		} else 
+		} else
 		{
 			$user = Users::create($request->all());
 			return response()->json($user, 201);
-		}			
+		}
     }
 
 	public function update(Request $request)
     {
 		$validator = Validator::make($request->all(), (new storeUser)->rules());
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return response()->json($validator->errors(), 400);
-		} else 
+		} else
 		{
-			$user = Users::find($request['id']);
+			$user = Users::find($request['user_id']);
+            if (is_null($user))
+            {
+                return response()->json(null, 404);
+            }
 			$user->update($request->all());
 			return response()->json($user, 200);
-		}	
+		}
 
     }
 
     public function destroy(Request $request)
     {
-        $user = Users::find($request['id']);
+        $user = Users::find($request['user_id']);
+        if (is_null($user))
+        {
+            return response()->json(null, 404);
+        }
 		$user->delete();
 		return response()->json(null, 204);
     }

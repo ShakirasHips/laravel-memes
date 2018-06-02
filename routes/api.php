@@ -41,9 +41,10 @@ Route::delete('posts/destroy', 'PostAPIController@destroy');
 Route::post('countries/store', 'CountryAPIController@store');
 Route::put('countries/update', 'CountryAPIController@update');
 Route::delete('countries/destroy', 'CountryAPIController@destroy');
-//restaurant
+//restaurantcd
 Route::post('restaurants/store', 'RestaurantAPIController@store');
 Route::put('restaurants/update', 'RestaurantAPIController@update');
 Route::delete('restaurants/destroy', 'RestaurantAPIController@destroy');
-Route::get('restaurants/showposts', 'RestaurantAPIController@showposts');
-Route::get('restaurants/showlocationcategory', 'RestaurantAPIController@showlocationcategory');
+Route::get('restaurants/showposts/{id}', 'RestaurantAPIController@showposts');
+Route::get('restaurants/showcategory/{id}', 'RestaurantAPIController@showcategory');
+Route::get('restaurants/showCountry/{id}', 'RestaurantAPIController@showCountry');

@@ -10,7 +10,7 @@ class Users extends Model
     protected $primaryKey = 'user_id';
 
     protected $fillable = [
-      'name', 'email', 'password', 'country_id'
+      'user_id','name', 'email', 'password', 'country_id'
     ];
 
     public function country()

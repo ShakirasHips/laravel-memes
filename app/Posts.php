@@ -9,7 +9,7 @@ class Posts extends Model
     protected $table = 'posts';
     protected $primaryKey = 'post_id';
 
-    protected $fillable = ['content', 'restaurant_id', 'user_id' ];
+    protected $fillable = ['post_id', 'content', 'restaurant_id', 'user_id' ];
 
     public function comments()
     {

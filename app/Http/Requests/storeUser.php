@@ -15,13 +15,13 @@ class storeUser extends FormRequest
     public function rules()
     {
         return [
-			'id' => 'required|numeric',
+			'user_id' => 'required|numeric',
 			'name' => 'required',
 			'email' => 'required|email',
 			'country_id' => 'required|numeric',
         ];
     }
-	
+
 	//comment messages
 	public function messages()
 	{
@@ -33,7 +33,7 @@ class storeUser extends FormRequest
 			'email.email' => 'Please enter formatted email',
 			'country_id.required' => 'please enter country id',
 			'country_id.numeric' => 'please enter country id in number format',
-			
+
 		];
 	}
 }

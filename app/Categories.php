@@ -10,7 +10,7 @@ class Categories extends Model
     protected $primaryKey = 'category_id';
 
     protected $fillable = [
-      'name'
+      'category_id', 'name'
     ];
 
     public function restaurants()

@@ -15,17 +15,17 @@ class storeRole extends FormRequest
     public function rules()
     {
         return [
-			'id' => 'required|numeric',
+			'role_id' => 'required|numeric',
 			'name' => 'required',
         ];
     }
-	
+
 	//comment messages
 	public function messages()
 	{
 		return [
-			'id.required' => 'Please enter id.',
-			'id.numeric' => 'Please enter number id.',
+			'role_id.required' => 'Please enter id.',
+			'role_id.numeric' => 'Please enter number id.',
 			'name.required' => 'Please enter name.',
 		];
 	}
