@@ -72,13 +72,13 @@ class RestaurantAPIController extends Controller
 		}
     }
 
-	public function showposts($id)
+    public function showposts($id)
     {
         $restaurants = Restaurant::find($id);
 
         if (is_null($restaurants))
         {
-            return response()->json($id, 404);
+            return response()->json(null, 404);
         }
 
         $restaurants->posts = $restaurants->posts->all();
@@ -95,12 +95,20 @@ class RestaurantAPIController extends Controller
     public function showcategory($id)
     {
         $restaurants = Categories::find($id)->restaurants;
-		return response()->json($restaurants, 200);
+	if (is_null($restaurants))
+        {
+            return response()->json(null, 404);
+        }
+	return response()->json($restaurants, 200);
     }
 
     public function showCountry($id)
     {
         $restaurants = Country::find($id)->restaurants;
-		return response()->json($restaurants, 200);
+	if (is_null($restaurants))
+        {
+            return response()->json(null, 404);
+        }
+	return response()->json($restaurants, 200);
     }
 }
